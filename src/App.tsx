@@ -1,39 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { Crypto, Iso } from "./types";
+import store from "./store";
+import { Constants } from "./constants";
 
 import { useRoutes } from 'hookrouter';
 
 const NotFoundPage = () => (
-  <p>Oops! This page no longer exists. Alternatively find up to the minute cryptocurrency values <a href="/" >here</a>.</p>)
+  <p>Oops! This page no longer exists.
+     Alternatively find up to the minute cryptocurrency values <a href="/" >here</a>.
+  </p>)
+
+interface CurrencyProps {
+  currency: Crypto
+}
 
 // cryptocurrencies listed on allCurrenciesPage
-const CurrencyItem = ({ currency }) => (
+const CurrencyItem = ({ currency }: CurrencyProps) => (
   <div>
     <p>{currency.FullName}</p>
     <p>{currency.Price}</p>
-    <p>{currency.MktCap}</p>
+    <p>{currency.MarketCap}</p>
     <p>{currency.ChangePCT24Hour}</p>
   </div>
 )
 
-const AllCurrenciesPage = () => currencies.map((currency, index) =>
-  (
+const AllCurrenciesPage = () => {
+const state = store.getState();
+  return state.cryptos.map((currency: Crypto, index: any) => (
     <div key={currency.Name}>
       <span>{index}</span>
       <CurrencyItem currency={currency} />
     </div>
-  );
+  ))
+};
 
+
+interface DetailProps {
+  label: string,
+  detail: string
+}
 
 // information container in singleCurrencyPage
-const CurrencyDetail = ({ label, detail }) => (
+const CurrencyDetail = ({ label, detail }: DetailProps) => (
   <div>
     <p>{label}</p>
     <p>{detail}</p>
   </div>)
 
-const SingleCurrencyPage = ({ currency }) => {
+const SingleCurrencyPage = ({ currency }:CurrencyProps) => {
   return (
     <div>
       <div>
@@ -50,7 +65,7 @@ const SingleCurrencyPage = ({ currency }) => {
   );
 };
 
-const CurrencyTitle = ({ currency }) => (
+const CurrencyTitle = ({ currency }: CurrencyProps) => (
   <div>
     <p>{"<--"}</p>
     <h2>{currency.FullName}</h2>
@@ -59,12 +74,31 @@ const CurrencyTitle = ({ currency }) => (
 )
 
 const routes = {
-  '/': () => <ListCurrenciesPage />,
-  '/single/:currency': ({ currency }) => <SingleCurrencyPage currency={currency} />
+  '/': () => <AllCurrenciesPage />,
+  '/single/:currency': (params: any) => <SingleCurrencyPage currency={params.currency} />
 };
 
 function App() {
   const routeResult = useRoutes(routes);
+
+  const currency = {
+      Status: Constants.NOT_LOADED,
+      Name: "BTC",
+      FullName: "Bitcoin",
+      MarketCap: 1000000,
+      CirculatingSupply: 2000,
+      Price: 30,
+      Volume24Hour: 3289.12309,
+      ChangePCT24Hour: 8.89
+  };
+
+  const countryCodes: Iso[] = [
+    {name: "USD", isSelected: true},
+    {name: "GBP", isSelected: false},
+    {name: "EUR", isSelected: false},
+    {name: "JPY", isSelected: false},
+    {name: "KRW", isSelected: false}
+  ];
 
   return (
     <div className="App">
@@ -72,12 +106,12 @@ function App() {
       <div className="header">
         {true ? <h1>VFCRYPTO</h1> : <CurrencyTitle currency={currency} />}
 
-        <div>{listCurrencyISO.map((iso, index) =>
+        <div>{countryCodes.map((iso: Iso, index: any) =>
           <span key={iso.name}>{iso.name}</span>)}
         </div>
       </div>
 
-      routeResult || <NotFoundPage />
+      { routeResult } || <NotFoundPage />
     </div>
   );
 }
