@@ -1,7 +1,6 @@
 import './App.css';
 import React from 'react';
 import { Crypto, Iso } from "./types";
-import store from "./store";
 import { Constants } from "./constants";
 
 import { useRoutes } from 'hookrouter';
@@ -26,13 +25,33 @@ const CurrencyItem = ({ currency }: CurrencyProps) => (
 )
 
 const AllCurrenciesPage = () => {
-const state = store.getState();
-  return state.cryptos.map((currency: Crypto, index: any) => (
-    <div key={currency.Name}>
-      <span>{index}</span>
-      <CurrencyItem currency={currency} />
-    </div>
-  ))
+  const cryptos: Crypto[] = [{
+    Status: Constants.NOT_LOADED,
+    Name: "BTC",
+    FullName: "Bitcoin",
+    MarketCap: 1000000,
+    CirculatingSupply: 2000,
+    Price: 30,
+    Volume24Hour: 3289.12309,
+    ChangePCT24Hour: 8.89
+  }, {
+    Status: Constants.NOT_LOADED,
+    Name: "BTC",
+    FullName: "Bitcoin",
+    MarketCap: 1000000,
+    CirculatingSupply: 2000,
+    Price: 30,
+    Volume24Hour: 3289.12309,
+    ChangePCT24Hour: 8.89
+  }];
+  return (<>
+    {cryptos.map((currency: Crypto, index: any) => (
+      <div key={currency.Name}>
+        <span>{index}</span>
+        <CurrencyItem currency={currency} />
+      </div>
+    ))}
+  </>)
 };
 
 
@@ -48,7 +67,7 @@ const CurrencyDetail = ({ label, detail }: DetailProps) => (
     <p>{detail}</p>
   </div>)
 
-const SingleCurrencyPage = ({ currency }:CurrencyProps) => {
+const SingleCurrencyPage = ({ currency }: CurrencyProps) => {
   return (
     <div>
       <div>
@@ -82,26 +101,26 @@ function App() {
   const routeResult = useRoutes(routes);
 
   const currency = {
-      Status: Constants.NOT_LOADED,
-      Name: "BTC",
-      FullName: "Bitcoin",
-      MarketCap: 1000000,
-      CirculatingSupply: 2000,
-      Price: 30,
-      Volume24Hour: 3289.12309,
-      ChangePCT24Hour: 8.89
+    Status: Constants.NOT_LOADED,
+    Name: "BTC",
+    FullName: "Bitcoin",
+    MarketCap: 1000000,
+    CirculatingSupply: 2000,
+    Price: 30,
+    Volume24Hour: 3289.12309,
+    ChangePCT24Hour: 8.89
   };
 
   const countryCodes: Iso[] = [
-    {name: "USD", isSelected: true},
-    {name: "GBP", isSelected: false},
-    {name: "EUR", isSelected: false},
-    {name: "JPY", isSelected: false},
-    {name: "KRW", isSelected: false}
+    { name: "USD", isSelected: true },
+    { name: "GBP", isSelected: false },
+    { name: "EUR", isSelected: false },
+    { name: "JPY", isSelected: false },
+    { name: "KRW", isSelected: false }
   ];
 
   return (
-    <div className="App">
+    <div className="App" data-test="component-app">
 
       <div className="header">
         {true ? <h1>VFCRYPTO</h1> : <CurrencyTitle currency={currency} />}
@@ -111,7 +130,7 @@ function App() {
         </div>
       </div>
 
-      { routeResult } || <NotFoundPage />
+      {routeResult || <NotFoundPage />}
     </div>
   );
 }
