@@ -53,7 +53,7 @@ test('renders without error', () => {
 
 // test('selected local currency starts as USD', () => {
 //   const wrapper = setup();
-//   const initialSelectedCurrency = wrapper.state("countryCodes");
+//   const initialSelectedCurrency = wrapper.state("selectedCurrency");
 //
 // });
 

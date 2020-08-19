@@ -1,6 +1,8 @@
 export enum Constants {
-  API_BASE_URL = "https://min-api.cryptocompare.com/data"
+  API_BASE_URL = "https://min-api.cryptocompare.com/data",
+
 }
+export const localCurrencies: string[] = [ "USD", "GBP", "EUR", "JPY", "KRW"];
 
 export enum Status {
   NOT_LOADED = "NOT_LOADED",

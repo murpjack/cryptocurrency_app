@@ -15,10 +15,10 @@ describe("updateCryptos", () => {
 
 describe("selectLocalCurrency", () => {
   test("returns an action with type `SELECT_LOCAL_CURRENCY`", () => {
-      const action = selectLocalCurrency(initialState.countryCodes);
+      const action = selectLocalCurrency(initialState.selectedCurrency);
       expect(action).toEqual({
         type: actionTypes.SELECT_LOCAL_CURRENCY,
-        payload: {countryCodes: initialState.countryCodes},
+        payload: {selectedCurrency: initialState.selectedCurrency},
         meta: undefined,
         error: undefined
       });

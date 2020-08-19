@@ -1,6 +1,5 @@
 import { action } from "typesafe-actions";
-import { Crypto, Iso } from "./../types";
-import { reject, resolve, encaseP, map, chain, fork } from 'fluture/index.js';
+import { reject, resolve, encaseP, map, chain, fork } from "fluture/index.js";
 import axios from "axios";
 import { Constants } from "./../constants";
 
@@ -18,23 +17,25 @@ export enum actionTypes {
 // '(reject: RejectFunction<unknown>, resolve: ResolveFunction<unknown>) => Cancel'.
 // Type 'void' is not assignable to type 'Cancel'.  TS2345
 
-export function updateCryptos(cryptos: Crypto[]) {
+export function updateCryptos(selectedCurrency: string) {
   store.dispatch({ type: actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED });
 
   const handleResponse = (response: any) => {
-      if (response.status === 200 && response.data.Response !== "Error") {
-        return reject(response.data.Message);
-      } else {
-        return resolve(response.data.Data);
-      }
-    };
+    if (response.status === 200 && response.data.Response !== "Error") {
+      return reject(response.data.Message);
+    } else {
+      return resolve(response.data.Data);
+    }
+  };
 
-
-  const massageResponse = (data: any) => data.map((item: any) => {
+  const massageResponse = (data: any) =>
+    data.map((item: any) => {
       // returns coinInfo, raw, display
       const currencyValues = item.DISPLAY.keys();
-      return currencyValues.map((currency: string) => ({
+      return currencyValues
+        .map((currency: string) => ({
           [item.CoinInfo.Name + currency]: {
+            Reference: currency,
             Name: item.CoinInfo.Name,
             FullName: item.CoinInfo.FullName,
             MarketCap: item.DISPLAY.MKTCAP,
@@ -43,33 +44,34 @@ export function updateCryptos(cryptos: Crypto[]) {
             Volume24Hour: item.DISPLAY.VOLUME24HOUR,
             ChangePCT24Hour: item.DISPLAY.CHANGEPCT24HOUR
           }
-      })).reduce((total: any, curr: any) => Object.assign(total, curr), {});
+        }))
+        .reduce((total: any, curr: any) => Object.assign(total, curr), {});
     });
 
-
-  const sendError = (message: string) => store.dispatch(
-    action(actionTypes.UPDATE_CRYPTOS_REQUEST_ERROR, {
+  const sendError = (message: string) =>
+    store.dispatch(
+      action(actionTypes.UPDATE_CRYPTOS_REQUEST_ERROR, {
         message
       })
     );
 
-  const sendSuccess = (data: any) => store.dispatch(
+  const sendSuccess = (data: any) =>
+    store.dispatch(
       action(actionTypes.UPDATE_CRYPTOS_REQUEST_SUCCESS, {
         data
       })
     );
-const state = store.getState()
-    const url = `${Constants.API_BASE_URL}/top/mktcapfull?limit=10&tsym=${state.selectedCurrency}`
-    const getF: any = encaseP(axios.get);
-    return getF(url)
-      .pipe(chain(handleResponse))
-      .pipe(map(massageResponse))
-      .pipe(fork(sendError)(sendSuccess));
 
+  const url = `${Constants.API_BASE_URL}/top/mktcapfull?limit=10&tsym=${selectedCurrency}`;
+  const getF: any = encaseP(axios.get);
+  return getF(url)
+    .pipe(chain(handleResponse))
+    .pipe(map(massageResponse))
+    .pipe(fork(sendError)(sendSuccess));
 }
 
-export function selectLocalCurrency(countryCodes: Iso[]) {
+export function selectLocalCurrency(selected: string) {
   return action(actionTypes.SELECT_LOCAL_CURRENCY, {
-    countryCodes
+    selected
   });
 }

@@ -2,6 +2,7 @@ import { combineReducers, createStore } from "redux";
 import { AppState } from "./types";
 import { Status } from "./constants";
 import { actionTypes } from "./actions";
+import { localCurrencies } from "./constants";
 
 /*
 crypto statuses:
@@ -10,8 +11,6 @@ crypto statuses:
   "LOAD_SUCCESS",
   "LOAD_FAIL"
 */
-
-export const localCurrencies: string[] = [ "USD", "GBP", "EUR", "JPY", "KRW"];
 
 export const initialState: AppState = {
   selectedCurrency: localCurrencies[0],

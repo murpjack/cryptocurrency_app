@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'raviger';
-
+import { localCurrencies } from "./../constants";
 import { selectLocalCurrency } from "./../actions";
-import { Iso, Crypto } from "../types";
+import { Crypto } from "../types";
 
 const mapStateToProps = ({ app }: any) => ({
   cryptos: app.cryptos,
-  countryCodes: app.countryCodes
+  selectedCurrency: app.selectedCurrency
 })
 
 interface HeaderProps {

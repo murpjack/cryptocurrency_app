@@ -1,9 +1,10 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRoutes } from 'raviger';
 
 import { AppState } from "./types";
 import store from "./store";
+import { updateCryptos } from "./actions";
 
 import Header from "./components/Header";
 import AllCryptosPage from "./components/AllCryptosPage";
@@ -21,6 +22,14 @@ const routes = {
 
 function App() {
   const routeResult = useRoutes(routes);
+
+  useEffect(() => {
+    console.log(123);
+    const state: AppState = store.getState().app;
+    updateCryptos(state.selectedCurrency)
+
+  }, []);
+
   return (
     <div className="App" data-test="component-app">
       <Header />

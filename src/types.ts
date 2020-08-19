@@ -14,8 +14,7 @@ export interface CurrencyProps {
 }
 
 export interface Crypto {
-  Status: string;
-  IsSelected: boolean;
+  Reference: string;
   Name: string;
   FullName: string;
   MarketCap: number;
