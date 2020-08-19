@@ -1,15 +1,16 @@
 import { combineReducers, createStore } from "redux";
 import { AppState } from "./types";
 import { Constants } from "./constants";
+import { actionTypes } from "./actions";
 
 /*
-crypto statuses: 
+crypto statuses:
   "NOT_LOADED",
   "LOAD_SUCCESS",
   "LOAD_FAIL"
 */
 
-const initialState: AppState = {
+export const initialState: AppState = {
   countryCodes: [
     { name: "USD", isSelected: true },
     { name: "GBP", isSelected: false },
@@ -18,8 +19,9 @@ const initialState: AppState = {
     { name: "KRW", isSelected: false }
   ],
   cryptos: Array.from(
-    Array(10).map(c => ({
+    Array(10).keys()).map(c => ({
       Status: Constants.NOT_LOADED,
+      IsSelected: false,
       Name: "ABR",
       FullName: "Cryptocurrency",
       MarketCap: 1000000,
@@ -28,17 +30,17 @@ const initialState: AppState = {
       Volume24Hour: 3289.12309,
       ChangePCT24Hour: 8.89
     }))
-  )
+
 };
 
 export function reducer(state: AppState = initialState, action: any): AppState {
   switch (action.type) {
-    case Constants.UPDATE_CRYPTOS:
+    case actionTypes.UPDATE_CRYPTOS:
       return {
         ...state,
         cryptos: action.payload.cryptos
       };
-    case Constants.SELECT_LOCAL_CURRENCY:
+    case actionTypes.SELECT_LOCAL_CURRENCY:
       return {
         ...state,
         countryCodes: action.payload.countryCodes
@@ -50,12 +52,12 @@ export function reducer(state: AppState = initialState, action: any): AppState {
 }
 
 export interface RootState {
-  currencies: AppState;
+  app: AppState;
 }
 
 const store = createStore<RootState, any, any, any>(
   combineReducers({
-    currencies: reducer
+    app:reducer
   })
 );
 

@@ -2,6 +2,5 @@ export enum Constants {
   NOT_LOADED = "NOT_LOADED",
   LOAD_SUCCESS = "LOAD_SUCCESS",
   LOAD_FAIL = "LOAD_FAIL",
-  UPDATE_CRYPTOS = "UPDATE_ALL_CURRENCIES",
-  SELECT_LOCAL_CURRENCY = "SELECT_LOCAL_CURRENCY"
+  API_BASE_URL = "https://min-api.cryptocompare.com/data" 
 }

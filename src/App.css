@@ -1,52 +1,33 @@
+@font-face {
+  font-family: 'Playfair';
+  src: url('./fonts/playfair-regular.woff2') format('woff2'),
+    url('./fonts/playfair-regular.woff') format('woff'),
+    url('./fonts/playfair-regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open-sans';
+  src: url('./fonts/open-sans.woff2') format('woff2'),
+    url('/fonts/open-sans.woff') format('woff'),
+    url('/fonts/open-sans.ttf') format('truetype');
+  font-display: swap;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin: 0px;
+  font-family: 'Open-sans', "Arial", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+a {
+  font-family: 'Open-sans', "Arial", sans-serif;
 }
 
-.App {
+h1 {
+  font-family: 'Playfair', "Arial", sans-serif;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h2 {
+  font-size: 25px;
 }

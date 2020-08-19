@@ -8,8 +8,13 @@ export interface Iso {
   isSelected: boolean
 }
 
+export interface CurrencyProps {
+  currency: Crypto
+}
+
 export interface Crypto {
       Status: string,
+      IsSelected: boolean,
       Name: string,
       FullName: string,
       MarketCap: number,
