@@ -59,7 +59,7 @@ export const AllCryptosPage = ({ cryptos, countryCodes, dispatch }: AllCryptoPro
 
   return (<div data-test="component-cryptos-list">
     {cryptos.map((currency: Crypto, index: any) => (
-      <div key={currency.Name}>
+      <div key={index}>
         <span>{index + 1}</span>
         <CurrencyItem currency={currency} />
       </div>
