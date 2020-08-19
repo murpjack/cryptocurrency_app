@@ -12,24 +12,14 @@ const mapStateToProps = ({ app }: any) => ({
 
 interface HeaderProps {
   cryptos: Crypto[],
-  countryCodes: Iso[],
+  selectedCurrency: string,
   dispatch: any
 }
 
-export const Header = ({ cryptos, countryCodes, dispatch }: HeaderProps) => {
+export const Header = ({ cryptos, selectedCurrency, dispatch }: HeaderProps) => {
 
-  function selectCodeFromList(selectedIndex: any) {
-    const differentCode = countryCodes.findIndex(c => c.isSelected) !== selectedIndex;
-    if (differentCode) {
-      const updatedList =
-        countryCodes.map((code: Iso, index: any) => {
-          if (selectedIndex === index) {
-            return { ...code, isSelected: true };
-          }
-          return { ...code, isSelected: false };
-        });
-      dispatch(selectLocalCurrency(updatedList))
-    }
+  function selectCodeFromList(selected: string) {
+    dispatch(selectLocalCurrency(selected))
   }
 
   return (<div className="header" data-test="component-header">
@@ -42,8 +32,8 @@ export const Header = ({ cryptos, countryCodes, dispatch }: HeaderProps) => {
       </div>)
     }
 
-    <div data-test="component-local-currency-dropdown">{countryCodes.map((iso: Iso, index: any) =>
-      <div onClick={() => selectCodeFromList(index)} key={iso.name}>{iso.name}</div>)}
+    <div data-test="component-local-currency-dropdown">{localCurrencies.map((currency: string, index: any) =>
+      <div onClick={() => selectCodeFromList(currency)} key={currency}>{currency}</div>)}
     </div>
   </div>)
 }

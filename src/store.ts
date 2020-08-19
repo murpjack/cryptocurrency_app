@@ -1,49 +1,37 @@
 import { combineReducers, createStore } from "redux";
 import { AppState } from "./types";
-import { Constants } from "./constants";
+import { Status } from "./constants";
 import { actionTypes } from "./actions";
 
 /*
 crypto statuses:
   "NOT_LOADED",
+  "LOADING",
   "LOAD_SUCCESS",
   "LOAD_FAIL"
 */
 
-export const initialState: AppState = {
-  countryCodes: [
-    { name: "USD", isSelected: true },
-    { name: "GBP", isSelected: false },
-    { name: "EUR", isSelected: false },
-    { name: "JPY", isSelected: false },
-    { name: "KRW", isSelected: false }
-  ],
-  cryptos: Array.from(
-    Array(10).keys()).map(c => ({
-      Status: Constants.NOT_LOADED,
-      IsSelected: false,
-      Name: "ABR",
-      FullName: "Cryptocurrency",
-      MarketCap: 1000000,
-      CirculatingSupply: 100000,
-      Price: 30,
-      Volume24Hour: 3289.12309,
-      ChangePCT24Hour: 8.89
-    }))
+export const localCurrencies: string[] = [ "USD", "GBP", "EUR", "JPY", "KRW"];
 
+export const initialState: AppState = {
+  selectedCurrency: localCurrencies[0],
+  cryptos: [],
+  cryptoRequestState: Status.NOT_LOADED,
+  cryptoRequestFailure: ""
 };
 
 export function reducer(state: AppState = initialState, action: any): AppState {
   switch (action.type) {
-    case actionTypes.UPDATE_CRYPTOS:
+    case actionTypes.UPDATE_CRYPTOS_REQUEST_SUCCESS:
       return {
         ...state,
-        cryptos: action.payload.cryptos
+        cryptos: action.payload.cryptos,
+
       };
     case actionTypes.SELECT_LOCAL_CURRENCY:
       return {
         ...state,
-        countryCodes: action.payload.countryCodes
+        selectedCurrency: action.payload.selectedCurrency
       };
 
     default:
