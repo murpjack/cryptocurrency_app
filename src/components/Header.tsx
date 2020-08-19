@@ -2,34 +2,42 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'raviger';
 import { localCurrencies } from "./../constants";
-import { selectLocalCurrency } from "./../actions";
+import { updateCryptos, selectLocalCurrency } from "./../actions";
 import { Crypto } from "../types";
 
 const mapStateToProps = ({ app }: any) => ({
   cryptos: app.cryptos,
-  selectedCurrency: app.selectedCurrency
 })
 
 interface HeaderProps {
   cryptos: Crypto[],
-  selectedCurrency: string,
+  selectedCryptoName: string,
   dispatch: any
 }
 
-export const Header = ({ cryptos, selectedCurrency, dispatch }: HeaderProps) => {
+export const Header = ({ selectedCryptoName, cryptos, dispatch }: HeaderProps) => {
+
+  const selectedCrypto = () => {
+    if (selectedCryptoName) {
+      const crypto = Object.values(cryptos).find(c => c.Name.toLowerCase() === selectedCryptoName);
+      return typeof crypto === "undefined" ? { Name: "Error", FullName: "Error" } : crypto;
+    }
+    return { Name: "Error", FullName: "Error" };
+  }
 
   function selectCodeFromList(selected: string) {
     dispatch(selectLocalCurrency(selected))
+    // updateCryptos(selected);
   }
 
   return (<div className="header" data-test="component-header">
-    {true ?
-      <Link href="/"><h1>VFCRYPTO</h1></Link> :
-      (<div>
+    {selectedCryptoName.length ? (
+      <div>
         <Link href="/">{"<--"}</Link>
-        <h2>{cryptos[0].FullName}</h2>
-        <p>{cryptos[0].Name}</p>
-      </div>)
+        <h2>{selectedCrypto().FullName}</h2>
+        <p>{selectedCrypto().Name}</p>
+      </div>) :
+      <Link href="/"><h1>VFCRYPTO</h1></Link>
     }
 
     <div data-test="component-local-currency-dropdown">{localCurrencies.map((currency: string, index: any) =>

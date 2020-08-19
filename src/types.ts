@@ -17,11 +17,11 @@ export interface Crypto {
   Reference: string;
   Name: string;
   FullName: string;
-  MarketCap: number;
-  CirculatingSupply: number;
-  Price: number;
+  MarketCap: string;
+  CirculatingSupply: string;
+  Price: string;
   Volume24Hour: number;
-  ChangePCT24Hour: number;
+  ChangePCT24Hour: string;
 }
 
 export interface AppState {

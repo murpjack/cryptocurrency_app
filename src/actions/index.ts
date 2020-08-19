@@ -12,14 +12,13 @@ export enum actionTypes {
   SELECT_LOCAL_CURRENCY = "SELECT_LOCAL_CURRENCY"
 }
 
-export function updateCryptos(selectedCurrency: string) {
+export function updateCryptos(selectedCurrency: string, ) {
   store.dispatch({ type: actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED });
 
   const handleResponse = (response: any) => {
     if (response.status !== 200 || response.data.Response === "Error") {
       return reject(response.data.Message);
     } else {
-      console.log("GD", response);
       // response.data.Data --> array
       return resolve(response.data.Data);
     }
@@ -54,13 +53,13 @@ export function updateCryptos(selectedCurrency: string) {
     );
 
   const sendSuccess = (data: any) => {
-    console.log(2, data);
     return store.dispatch(
       action(actionTypes.UPDATE_CRYPTOS_REQUEST_SUCCESS, {
         data
       })
     );
   };
+  console.log(54,selectedCurrency);
 
   const url = `${Constants.API_BASE_URL}/top/mktcapfull?limit=10&tsym=${selectedCurrency}`;
   const getF: any = encaseP(axios.get);

@@ -81,9 +81,6 @@ interface AllCryptoProps {
 }
 
 export const AllCryptosPage = ({ cryptos, selectedCurrency }: AllCryptoProps) => {
-
-  console.log(432, cryptos);
-
   return (
     <StyledList>
       <StyledItemTitle>

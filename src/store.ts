@@ -30,7 +30,7 @@ export function reducer(state: AppState = initialState, action: any): AppState {
     case actionTypes.SELECT_LOCAL_CURRENCY:
       return {
         ...state,
-        selectedCurrency: action.payload.selectedCurrency
+        selectedCurrency: action.payload.selected
       };
 
     default:

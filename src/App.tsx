@@ -1,10 +1,11 @@
 import './App.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRoutes } from 'raviger';
 
 import { AppState } from "./types";
 import store from "./store";
 import { updateCryptos } from "./actions";
+import { Status } from "./constants";
 
 import Header from "./components/Header";
 import AllCryptosPage from "./components/AllCryptosPage";
@@ -15,23 +16,51 @@ const routes = {
   '/': () => <AllCryptosPage />,
   '/single/:currency': (params: any) => {
     const state: AppState = store.getState().app;
-    const crypto = state.cryptos.find(c => c.Name.toLowerCase() === params.currency);
+    const crypto = Object.values(state.cryptos).find(c => c.Name.toLowerCase() === params.currency);
     return typeof crypto === "undefined" ? <NotFoundPage /> : <SingleCryptoPage currency={crypto} />
   }
 };
 
 function App() {
   const routeResult = useRoutes(routes);
+  const state: AppState = store.getState().app;
+
+  const selectedCryptoName: string =
+    window.location.pathname.indexOf("/single/") > -1 ? window.location.pathname.slice(("/single/").length) : "";
+
+  const t = 60;
+  const [seconds, setSeconds] = useState(t);
+  const reset = () => setSeconds(t);
 
   useEffect(() => {
-    const state: AppState = store.getState().app;
-    updateCryptos(state.selectedCurrency)
-    
-  }, []);
+    // Refresh data at the top of each minute
+    if (seconds === t) {
+      console.log(3);
+      // const state: AppState = store.getState().app;
+      updateCryptos(state.selectedCurrency);
+    }
 
+    let interval = setInterval(() => {
+      setSeconds(seconds - 1);
+    }, 1000);
+    if (seconds < 0) {
+      clearInterval(interval);
+      reset();
+    }
+    return () => clearInterval(interval);
+  }, [seconds]);
+
+  useEffect(() => {
+    if (state.cryptoRequestState === Status.NOT_LOADED) {
+      console.log(2);
+      if (seconds !== t) {
+        updateCryptos(state.selectedCurrency);
+      }
+    }
+  }, [state.selectedCurrency]);
   return (
     <div className="App" data-test="component-app">
-      <Header />
+      <Header selectedCryptoName={selectedCryptoName} />
       {routeResult || <NotFoundPage />}
     </div>
   );
