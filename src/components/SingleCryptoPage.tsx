@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import styled from "styled-components";
 import axios from "axios";
 import { Constants } from "./../constants";
-import { encaseP, chain, map, fork } from 'fluture/index.js';
+import { encaseP, map, fork } from 'fluture/index.js';
 
 import { device } from "../styles/variables";
-import { updateCryptos, selectLocalCurrency } from "./../actions";
+// import { updateCryptos, selectLocalCurrency } from "./../actions";
 
 import { Crypto, Iso } from "../types";
 

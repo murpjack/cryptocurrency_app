@@ -18,3 +18,8 @@ export const device = {
   desktop: `(min-width: ${size.desktop})`
   // desktopL = `(min-width: ${size.desktop})`
 }
+
+export const colours = {
+  bgListHeader: "#ebf0f4",
+  fontListItem: "#8f97ad",
+}
