@@ -24,7 +24,7 @@ export function reducer(state: AppState = initialState, action: any): AppState {
     case actionTypes.UPDATE_CRYPTOS_REQUEST_SUCCESS:
       return {
         ...state,
-        cryptos: action.payload.cryptos,
+        cryptos: action.payload.data,
 
       };
     case actionTypes.SELECT_LOCAL_CURRENCY:

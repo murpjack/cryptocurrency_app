@@ -24,10 +24,9 @@ function App() {
   const routeResult = useRoutes(routes);
 
   useEffect(() => {
-    console.log(123);
     const state: AppState = store.getState().app;
     updateCryptos(state.selectedCurrency)
-
+    
   }, []);
 
   return (

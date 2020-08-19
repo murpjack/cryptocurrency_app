@@ -12,18 +12,15 @@ export enum actionTypes {
   SELECT_LOCAL_CURRENCY = "SELECT_LOCAL_CURRENCY"
 }
 
-// Argument of type '(reject: RejectFunction<unknown>, resolve: ResolveFunction<unknown>) => void'
-// is not assignable to parameter of type
-// '(reject: RejectFunction<unknown>, resolve: ResolveFunction<unknown>) => Cancel'.
-// Type 'void' is not assignable to type 'Cancel'.  TS2345
-
 export function updateCryptos(selectedCurrency: string) {
   store.dispatch({ type: actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED });
 
   const handleResponse = (response: any) => {
-    if (response.status === 200 && response.data.Response !== "Error") {
+    if (response.status !== 200 || response.data.Response === "Error") {
       return reject(response.data.Message);
     } else {
+      console.log("GD", response);
+      // response.data.Data --> array
       return resolve(response.data.Data);
     }
   };
@@ -31,22 +28,23 @@ export function updateCryptos(selectedCurrency: string) {
   const massageResponse = (data: any) =>
     data.map((item: any) => {
       // returns coinInfo, raw, display
-      const currencyValues = item.DISPLAY.keys();
+      const currencyValues = Object.keys(item.DISPLAY);
       return currencyValues
         .map((currency: string) => ({
           [item.CoinInfo.Name + currency]: {
             Reference: currency,
             Name: item.CoinInfo.Name,
             FullName: item.CoinInfo.FullName,
-            MarketCap: item.DISPLAY.MKTCAP,
-            CirculatingSupply: item.DISPLAY.SUPPLY,
-            Price: item.DISPLAY.PRICE,
-            Volume24Hour: item.DISPLAY.VOLUME24HOUR,
-            ChangePCT24Hour: item.DISPLAY.CHANGEPCT24HOUR
+            MarketCap: item.DISPLAY[currency].MKTCAP,
+            CirculatingSupply: item.DISPLAY[currency].SUPPLY,
+            Price: item.DISPLAY[currency].PRICE,
+            Volume24Hour: item.DISPLAY[currency].VOLUME24HOUR,
+            ChangePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR
           }
         }))
-        .reduce((total: any, curr: any) => Object.assign(total, curr), {});
-    });
+        .reduce((total: any, curr: any) => ({ ...total, ...curr }), {});
+    })
+    .reduce((total: any, curr: any) => ({ ...total, ...curr }), {});
 
   const sendError = (message: string) =>
     store.dispatch(
@@ -55,12 +53,14 @@ export function updateCryptos(selectedCurrency: string) {
       })
     );
 
-  const sendSuccess = (data: any) =>
-    store.dispatch(
+  const sendSuccess = (data: any) => {
+    console.log(2, data);
+    return store.dispatch(
       action(actionTypes.UPDATE_CRYPTOS_REQUEST_SUCCESS, {
         data
       })
     );
+  };
 
   const url = `${Constants.API_BASE_URL}/top/mktcapfull?limit=10&tsym=${selectedCurrency}`;
   const getF: any = encaseP(axios.get);
