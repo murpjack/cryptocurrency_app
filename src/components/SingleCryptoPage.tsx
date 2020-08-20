@@ -32,19 +32,30 @@ interface SingleCryptoProps {
 }
 
 export const SingleCryptoPage = ({ rank, currency, selectedCurrency, cryptoRequestState }: SingleCryptoProps) => {
-  return cryptoRequestState === Status.NOT_LOADED ? (<>Just a second!</>) :
-   (
-    <div data-test="component-crypto">
+  return cryptoRequestState === Status.NOT_LOADED || cryptoRequestState === Status.LOADING ? (
+    <div data-test="component-test-crypto">
       <div>
-        <CurrencyDetail label={"Rank"} detail={rank} />
+        <CurrencyDetail label={"Rank"} detail={"#"} />
       </div>
       <div>
-        <CurrencyDetail label={"Market Cap"} detail={currency.marketCap} />
-        <CurrencyDetail label={"24 Hour Volume %"} detail={currency.changePCT24Hour} />
-        <CurrencyDetail label={"Circulating Supply"} detail={currency.circulatingSupply} />
+        <CurrencyDetail label={"Market Cap"} detail={"-"} />
+        <CurrencyDetail label={"24 Hour Volume %"} detail={"-"} />
+        <CurrencyDetail label={"Circulating Supply"} detail={"-"} />
       </div>
-
     </div>
-  );
+  ) :
+    (
+      <div data-test="component-crypto">
+        <div>
+          <CurrencyDetail label={"Rank"} detail={rank} />
+        </div>
+        <div>
+          <CurrencyDetail label={"Market Cap"} detail={currency.marketCap} />
+          <CurrencyDetail label={"24 Hour Volume %"} detail={currency.changePCT24Hour} />
+          <CurrencyDetail label={"Circulating Supply"} detail={currency.circulatingSupply} />
+        </div>
+
+      </div>
+    );
 };
 export default connect(mapStateToProps)(SingleCryptoPage);

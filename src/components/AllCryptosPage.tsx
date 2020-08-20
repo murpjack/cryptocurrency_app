@@ -85,9 +85,9 @@ interface AllCryptoProps {
 }
 
 export const AllCryptosPage = ({ cryptos, selectedCurrency, cryptoRequestState }: AllCryptoProps) => {
-console.log(cryptos);
+  console.log(cryptos);
 
-  return cryptoRequestState === Status.NOT_LOADED ? (<>Just a second!</>) : (
+  return (
     <StyledList>
       <StyledItemTitle>
         <p>CRYPTOCURRENCY</p>
@@ -96,7 +96,8 @@ console.log(cryptos);
         <p>24H CHANGE</p>
       </StyledItemTitle>
 
-      {Object.values(cryptos).filter(c => c.reference === selectedCurrency).map((crypto: Crypto, index: any) => (
+      {cryptoRequestState === Status.NOT_LOADED || cryptoRequestState === Status.LOADING ? 
+        (<>Just a second!</>) : Object.values(cryptos).filter(c => c.reference === selectedCurrency).map((crypto: Crypto, index: any) => (
         <div key={index}>
           <span>{index + 1}</span>
           <CryptoItem currency={crypto} />

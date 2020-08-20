@@ -13,7 +13,7 @@ export enum actionTypes {
 }
 
 export function updateCryptos(selectedCurrency: string) {
-  store.dispatch(action(actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED));
+  const startRequest = store.dispatch(action(actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED));
 
   const handleResponse = (response: any) => {
     if (response.status !== 200 || response.data.Response === "Error") {
@@ -61,7 +61,6 @@ export function updateCryptos(selectedCurrency: string) {
       })
     );
   };
-  console.log(54, selectedCurrency);
 
   const url = `${Constants.API_BASE_URL}/top/mktcapfull?limit=10&tsym=${selectedCurrency}`;
   const getF: any = encaseP(axios.get);
