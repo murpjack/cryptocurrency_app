@@ -51,7 +51,7 @@ const CryptoItem = ({ currency }: ItemProps) => {
   return (
     <StyledItem>
       <p>
-        <img src={currency.imageUrl} alt={currency.fullName}/>
+        <img src={currency.imageUrl} alt={currency.fullName} />
         <span>{currency.fullName}</span>
       </p>
       <p>{currency.price}</p>
@@ -96,7 +96,7 @@ export const AllCryptosPage = ({ cryptos, selectedCurrency, cryptoRequestState }
       price: "-",
       marketCap: "-",
       changePCT24Hour: "-",
-      imageUrl: "./images/crypto_placeholder.png"
+      imageUrl: "./images/placeholder.png"
     }));
 
   return (
