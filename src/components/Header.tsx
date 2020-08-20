@@ -19,9 +19,56 @@ const StyledHeader = styled.div`
     display: inline-block;
     text-decoration: none;
   }
+`;
 
+const StyledHeaderTitle = styled.div`
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  a {
+    color: inherit;
+    display: inline-block;
+    text-decoration: none;
+  }
   img {
     height: 32px;
+    float: left;
+    margin-left: 50px;
+    padding: 22px 5px;
+    margin-right: 5px;
+    width: 32px;
+  }
+
+  .header__title {
+    box-sizing: border-box;
+    display: inline-block;
+    height: 75px;
+    padding: 15px 0;
+
+    /* Back arrow */
+    &:before {
+      background-color: red;
+      border-radius: 50px;
+      content: "←";
+      display: block;
+      font-size: 25px;
+      font-weight: 700;
+      height: 32px;
+      left: 15px;
+      line-height: 28px;
+      position: absolute;
+      text-align: center;
+      top: 22px;
+      width: 32px;
+    }
+  }
+  p {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0;
   }
 `;
 
@@ -58,16 +105,19 @@ export const Header = ({ selectedCryptoName, cryptos, dispatch }: HeaderProps) =
     dispatch(selectLocalCurrency(selected))
   }
 
-  return (<StyledHeader className="header" data-test="component-header">
-    {selectedCryptoName.length ? (
-      <div>
-        <Link href="/">{"<--"}</Link>
-        <img src={selectedCrypto().imageUrl} alt={selectedCrypto().fullName} />
-        <h2>{selectedCrypto().fullName}</h2>
-        <p>{selectedCrypto().name}</p>
-      </div>) :
-      <Link href="/"><h1>VFCRYPTO</h1></Link>
-    }
+  return (<StyledHeader data-test="component-header">
+    <StyledHeaderTitle>
+      {selectedCryptoName.length ? (
+        <Link href="/">
+          <img src={selectedCrypto().imageUrl} alt={selectedCrypto().fullName} />
+          <div className="header__title">
+            <h2>{selectedCrypto().fullName}</h2>
+            <p>{selectedCrypto().name}</p>
+          </div>
+        </Link>) :
+        <Link href="/"><h1>VFCRYPTO</h1></Link>
+      }
+    </StyledHeaderTitle>
 
     <StyledDropdown data-test="component-local-currency-dropdown">{localCurrencies.map((currency: string, index: any) =>
       <div onClick={() => selectCodeFromList(currency)} key={currency}>{currency}</div>)}

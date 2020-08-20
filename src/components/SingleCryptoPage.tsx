@@ -21,7 +21,8 @@ const CurrencyDetail = ({ label, detail }: DetailProps) => (
 
 const StyledPage = styled.div`
   background-color: #f0f;
-  margin: 0px 0 40px;
+  height: 90vh;
+  margin: 0;
   padding: 0;
   width: 100%;
 
