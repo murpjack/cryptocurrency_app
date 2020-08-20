@@ -16,8 +16,8 @@ const routes = {
   '/': () => <AllCryptosPage />,
   '/single/:currency': (params: any) => {
     const state: AppState = store.getState().app;
-    const crypto = Object.values(state.cryptos).find(c => c.Name.toLowerCase() === params.currency);
-    return typeof crypto === "undefined" ? <NotFoundPage /> : <SingleCryptoPage currency={crypto} />
+    const crypto = Object.values(state.cryptos).find(c => c.name.toLowerCase() === params.currency);
+    return typeof crypto === "undefined" ? <NotFoundPage /> : <SingleCryptoPage rank={crypto.rank} currency={crypto} />
   }
 };
 

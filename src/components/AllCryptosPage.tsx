@@ -45,12 +45,12 @@ interface ItemProps {
 const CryptoItem = ({ currency }: ItemProps) => {
   return (
     <StyledItem>
-      <Link href={`/single/${currency.Name.toLowerCase()}`}>
-        <p>{currency.FullName}</p>
+      <Link href={`/single/${currency.name.toLowerCase()}`}>
+        <p>{currency.fullName}</p>
       </Link>
-      <p>{currency.Price}</p>
-      <p>{currency.MarketCap}</p>
-      <p>{currency.ChangePCT24Hour}</p>
+      <p>{currency.price}</p>
+      <p>{currency.marketCap}</p>
+      <p>{currency.changePCT24Hour}</p>
     </StyledItem>
   )
 }
@@ -90,7 +90,7 @@ export const AllCryptosPage = ({ cryptos, selectedCurrency }: AllCryptoProps) =>
         <p>24H CHANGE</p>
       </StyledItemTitle>
 
-      {Object.values(cryptos).filter(c => c.Reference === selectedCurrency).map((crypto: Crypto, index: any) => (
+      {Object.values(cryptos).filter(c => c.reference === selectedCurrency).map((crypto: Crypto, index: any) => (
         <div key={index}>
           <span>{index + 1}</span>
           <CryptoItem currency={crypto} />

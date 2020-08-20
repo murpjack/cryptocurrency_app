@@ -19,10 +19,10 @@ export const Header = ({ selectedCryptoName, cryptos, dispatch }: HeaderProps) =
 
   const selectedCrypto = () => {
     if (selectedCryptoName) {
-      const crypto = Object.values(cryptos).find(c => c.Name.toLowerCase() === selectedCryptoName);
-      return typeof crypto === "undefined" ? { Name: "Error", FullName: "Error" } : crypto;
+      const crypto = Object.values(cryptos).find(c => c.name.toLowerCase() === selectedCryptoName);
+      return typeof crypto === "undefined" ? { name: "Error", fullName: "Error" } : crypto;
     }
-    return { Name: "Error", FullName: "Error" };
+    return { name: "Error", fullName: "Error" };
   }
 
   function selectCodeFromList(selected: string) {
@@ -34,8 +34,8 @@ export const Header = ({ selectedCryptoName, cryptos, dispatch }: HeaderProps) =
     {selectedCryptoName.length ? (
       <div>
         <Link href="/">{"<--"}</Link>
-        <h2>{selectedCrypto().FullName}</h2>
-        <p>{selectedCrypto().Name}</p>
+        <h2>{selectedCrypto().fullName}</h2>
+        <p>{selectedCrypto().name}</p>
       </div>) :
       <Link href="/"><h1>VFCRYPTO</h1></Link>
     }

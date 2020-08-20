@@ -8,7 +8,7 @@ import { Crypto } from "../types";
 
 interface DetailProps {
   label: string,
-  detail: string
+  detail: string | number
 }
 
 // information container in singleCurrencyPage
@@ -23,20 +23,22 @@ const mapStateToProps = ({ app }: any) => ({
 })
 
 interface SingleCryptoProps {
+  rank: number,
   currency: Crypto,
   selectedCurrency: string
 }
 
-export const SingleCryptoPage = ({ currency, selectedCurrency }: SingleCryptoProps) => {
+export const SingleCryptoPage = ({ rank, currency, selectedCurrency }: SingleCryptoProps) => {
+console.log(1);
   return (
     <div data-test="component-crypto">
       <div>
         <CurrencyDetail label={"Rank"} detail={"1"} />
       </div>
       <div>
-        <CurrencyDetail label={"Market Cap"} detail={currency.MarketCap} />
-        <CurrencyDetail label={"24 Hour Volume %"} detail={currency.ChangePCT24Hour} />
-        <CurrencyDetail label={"Circulating Supply"} detail={currency.CirculatingSupply} />
+        <CurrencyDetail label={"Market Cap"} detail={currency.marketCap} />
+        <CurrencyDetail label={"24 Hour Volume %"} detail={currency.changePCT24Hour} />
+        <CurrencyDetail label={"Circulating Supply"} detail={currency.circulatingSupply} />
       </div>
 
     </div>

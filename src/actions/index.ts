@@ -29,16 +29,17 @@ export function updateCryptos(selectedCurrency: string, ) {
       // returns coinInfo, raw, display
       const currencyValues = Object.keys(item.DISPLAY);
       return currencyValues
-        .map((currency: string) => ({
+        .map((currency: string, index: any) => ({
           [item.CoinInfo.Name + currency]: {
-            Reference: currency,
-            Name: item.CoinInfo.Name,
-            FullName: item.CoinInfo.FullName,
-            MarketCap: item.DISPLAY[currency].MKTCAP,
-            CirculatingSupply: item.DISPLAY[currency].SUPPLY,
-            Price: item.DISPLAY[currency].PRICE,
-            Volume24Hour: item.DISPLAY[currency].VOLUME24HOUR,
-            ChangePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR
+            rank: index,
+            reference: currency,
+            name: item.CoinInfo.Name,
+            fullName: item.CoinInfo.FullName,
+            marketCap: item.DISPLAY[currency].MKTCAP,
+            circulatingSupply: item.DISPLAY[currency].SUPPLY,
+            price: item.DISPLAY[currency].PRICE,
+            volume24Hour: item.DISPLAY[currency].VOLUME24HOUR,
+            changePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR
           }
         }))
         .reduce((total: any, curr: any) => ({ ...total, ...curr }), {});

@@ -14,14 +14,15 @@ export interface CurrencyProps {
 }
 
 export interface Crypto {
-  Reference: string;
-  Name: string;
-  FullName: string;
-  MarketCap: string;
-  CirculatingSupply: string;
-  Price: string;
-  Volume24Hour: number;
-  ChangePCT24Hour: string;
+  rank: number;
+  reference: string;
+  name: string;
+  fullName: string;
+  marketCap: string;
+  circulatingSupply: string;
+  price: string;
+  volume24Hour: number;
+  changePCT24Hour: string;
 }
 
 export interface AppState {
