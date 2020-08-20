@@ -17,7 +17,7 @@ const StyledItem = styled.div`
 
   a {
     color: inherit;
-    display: inline-block;
+    display: block;
     height: 45px;
     margin-right: 10px;
     min-width: 40px;
@@ -47,9 +47,9 @@ interface ItemProps {
 const CryptoItem = ({ currency }: ItemProps) => {
   return (
     <StyledItem>
-      <Link href={`/single/${currency.name.toLowerCase()}`}>
-        <p>{currency.fullName}</p>
-      </Link>
+      <p>
+        <span>{currency.fullName}</span>
+      </p>
       <p>{currency.price}</p>
       <p>{currency.marketCap}</p>
       <p>{currency.changePCT24Hour}</p>
@@ -64,7 +64,6 @@ const StyledList = styled.div`
 
   a {
     color: inherit;
-    display: inline-block;
     height: 45px;
     margin-right: 10px;
     min-width: 40px;
@@ -85,7 +84,15 @@ interface AllCryptoProps {
 }
 
 export const AllCryptosPage = ({ cryptos, selectedCurrency, cryptoRequestState }: AllCryptoProps) => {
-  console.log(cryptos);
+
+  const placeholders: any[] = Array.from(Array(10).keys()).map(i =>
+    ({
+      name: "Crypto",
+      fullName: "Loading",
+      price: "-",
+      marketCap: "-",
+      changePCT24Hour: "-",
+    }));
 
   return (
     <StyledList>
@@ -96,13 +103,19 @@ export const AllCryptosPage = ({ cryptos, selectedCurrency, cryptoRequestState }
         <p>24H CHANGE</p>
       </StyledItemTitle>
 
-      {cryptoRequestState === Status.NOT_LOADED || cryptoRequestState === Status.LOADING ? 
-        (<>Just a second!</>) : Object.values(cryptos).filter(c => c.reference === selectedCurrency).map((crypto: Crypto, index: any) => (
-        <div key={index}>
-          <span>{index + 1}</span>
-          <CryptoItem currency={crypto} />
-        </div>
-      ))}
+      {cryptoRequestState === Status.NOT_LOADED || cryptoRequestState === Status.LOADING ?
+        placeholders.map((crypto: any, index: any) => (
+          <div key={index}>
+            <span>{"#"}</span>
+            <CryptoItem currency={crypto} />
+          </div>
+        ))
+        : Object.values(cryptos).filter(c => c.reference === selectedCurrency).map((crypto: Crypto, index: any) => (
+          <Link key={index} href={`/single/${crypto.name.toLowerCase()}`}>
+            <span>{index + 1}</span>
+            <CryptoItem currency={crypto} />
+          </Link>
+        ))}
     </StyledList>)
 };
 

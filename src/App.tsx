@@ -31,7 +31,6 @@ function App() {
   const t = 60;
   const [seconds, setSeconds] = useState(t);
   const reset = () => setSeconds(t);
-console.log(state.cryptoRequestState);
 
   useEffect(() => {
     // Refresh data at the top of each minute
