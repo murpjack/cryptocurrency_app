@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'raviger';
 import { localCurrencies } from "./../constants";
-import { updateCryptos, selectLocalCurrency } from "./../actions";
+import { selectLocalCurrency } from "./../actions";
 import { Crypto } from "../types";
 
 const mapStateToProps = ({ app }: any) => ({
@@ -27,7 +27,6 @@ export const Header = ({ selectedCryptoName, cryptos, dispatch }: HeaderProps) =
 
   function selectCodeFromList(selected: string) {
     dispatch(selectLocalCurrency(selected))
-    // updateCryptos(selected);
   }
 
   return (<div className="header" data-test="component-header">

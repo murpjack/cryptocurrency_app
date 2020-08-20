@@ -31,12 +31,11 @@ function App() {
   const t = 60;
   const [seconds, setSeconds] = useState(t);
   const reset = () => setSeconds(t);
+console.log(state.cryptoRequestState);
 
   useEffect(() => {
     // Refresh data at the top of each minute
     if (seconds === t) {
-      console.log(3);
-      // const state: AppState = store.getState().app;
       updateCryptos(state.selectedCurrency);
     }
 
@@ -51,13 +50,9 @@ function App() {
   }, [seconds]);
 
   useEffect(() => {
-    if (state.cryptoRequestState === Status.NOT_LOADED) {
-      console.log(2);
-      if (seconds !== t) {
-        updateCryptos(state.selectedCurrency);
-      }
-    }
-  }, [state.selectedCurrency]);
+    seconds !== t && reset();
+  }, [state.selectedCurrency, selectedCryptoName]);
+
   return (
     <div className="App" data-test="component-app">
       <Header selectedCryptoName={selectedCryptoName} />

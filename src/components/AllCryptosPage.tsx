@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'raviger';
-import styled from "styled-components";
 
+import styled from "styled-components";
 import { device, colours } from "../styles/variables";
+
+import { Status } from "../constants";
 import { Crypto } from "../types";
 
 const StyledItem = styled.div`
@@ -72,16 +74,20 @@ const StyledList = styled.div`
 
 const mapStateToProps = ({ app }: any) => ({
   cryptos: app.cryptos,
-  selectedCurrency: app.selectedCurrency
+  selectedCurrency: app.selectedCurrency,
+  cryptoRequestState: app.cryptoRequestState
 })
 
 interface AllCryptoProps {
   cryptos: Crypto[],
-  selectedCurrency: string
+  selectedCurrency: string,
+  cryptoRequestState: string
 }
 
-export const AllCryptosPage = ({ cryptos, selectedCurrency }: AllCryptoProps) => {
-  return (
+export const AllCryptosPage = ({ cryptos, selectedCurrency, cryptoRequestState }: AllCryptoProps) => {
+console.log(cryptos);
+
+  return cryptoRequestState === Status.NOT_LOADED ? (<>Just a second!</>) : (
     <StyledList>
       <StyledItemTitle>
         <p>CRYPTOCURRENCY</p>

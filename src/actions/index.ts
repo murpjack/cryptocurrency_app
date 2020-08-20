@@ -12,8 +12,8 @@ export enum actionTypes {
   SELECT_LOCAL_CURRENCY = "SELECT_LOCAL_CURRENCY"
 }
 
-export function updateCryptos(selectedCurrency: string, ) {
-  store.dispatch({ type: actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED });
+export function updateCryptos(selectedCurrency: string) {
+  store.dispatch(action(actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED));
 
   const handleResponse = (response: any) => {
     if (response.status !== 200 || response.data.Response === "Error") {
@@ -25,26 +25,27 @@ export function updateCryptos(selectedCurrency: string, ) {
   };
 
   const massageResponse = (data: any) =>
-    data.map((item: any) => {
-      // returns coinInfo, raw, display
-      const currencyValues = Object.keys(item.DISPLAY);
-      return currencyValues
-        .map((currency: string, index: any) => ({
-          [item.CoinInfo.Name + currency]: {
-            rank: index,
-            reference: currency,
-            name: item.CoinInfo.Name,
-            fullName: item.CoinInfo.FullName,
-            marketCap: item.DISPLAY[currency].MKTCAP,
-            circulatingSupply: item.DISPLAY[currency].SUPPLY,
-            price: item.DISPLAY[currency].PRICE,
-            volume24Hour: item.DISPLAY[currency].VOLUME24HOUR,
-            changePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR
-          }
-        }))
-        .reduce((total: any, curr: any) => ({ ...total, ...curr }), {});
-    })
-    .reduce((total: any, curr: any) => ({ ...total, ...curr }), {});
+    data
+      .map((item: any, index: any) => {
+        // returns coinInfo, raw, display
+        const currencyValues = Object.keys(item.DISPLAY);
+        return currencyValues
+          .map((currency: string) => ({
+            [item.CoinInfo.Name + currency]: {
+              rank: index + 1,
+              reference: currency,
+              name: item.CoinInfo.Name,
+              fullName: item.CoinInfo.FullName,
+              marketCap: item.DISPLAY[currency].MKTCAP,
+              circulatingSupply: item.DISPLAY[currency].SUPPLY,
+              price: item.DISPLAY[currency].PRICE,
+              volume24Hour: item.DISPLAY[currency].VOLUME24HOUR,
+              changePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR
+            }
+          }))
+          .reduce((total: any, curr: any) => ({ ...total, ...curr }), {});
+      })
+      .reduce((total: any, curr: any) => ({ ...total, ...curr }), {});
 
   const sendError = (message: string) =>
     store.dispatch(
@@ -60,7 +61,7 @@ export function updateCryptos(selectedCurrency: string, ) {
       })
     );
   };
-  console.log(54,selectedCurrency);
+  console.log(54, selectedCurrency);
 
   const url = `${Constants.API_BASE_URL}/top/mktcapfull?limit=10&tsym=${selectedCurrency}`;
   const getF: any = encaseP(axios.get);

@@ -21,16 +21,33 @@ export const initialState: AppState = {
 
 export function reducer(state: AppState = initialState, action: any): AppState {
   switch (action.type) {
+    case actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED:
+      return {
+        ...state,
+        cryptos: [],
+        cryptoRequestState: Status.LOADING,
+        cryptoRequestFailure: ""
+      };
     case actionTypes.UPDATE_CRYPTOS_REQUEST_SUCCESS:
       return {
         ...state,
         cryptos: action.payload.data,
-
+        cryptoRequestState: Status.LOAD_SUCCESS,
+        cryptoRequestFailure: ""
       };
+    case actionTypes.UPDATE_CRYPTOS_REQUEST_ERROR:
+      return {
+        ...state,
+        cryptos: [],
+        cryptoRequestState: Status.LOAD_FAIL,
+        cryptoRequestFailure: action.payload.message
+      };
+
     case actionTypes.SELECT_LOCAL_CURRENCY:
       return {
         ...state,
-        selectedCurrency: action.payload.selected
+        selectedCurrency: action.payload.selected,
+        cryptoRequestState: Status.NOT_LOADED,
       };
 
     default:
@@ -44,7 +61,7 @@ export interface RootState {
 
 const store = createStore<RootState, any, any, any>(
   combineReducers({
-    app:reducer
+    app: reducer
   })
 );
 

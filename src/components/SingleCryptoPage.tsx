@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import styled from "styled-components";
 import { device } from "../styles/variables";
 
+import { Status } from "../constants";
 import { Crypto } from "../types";
 
 interface DetailProps {
@@ -19,21 +20,23 @@ const CurrencyDetail = ({ label, detail }: DetailProps) => (
   </div>)
 
 const mapStateToProps = ({ app }: any) => ({
-  selectedCurrency: app.selectedCurrency
+  selectedCurrency: app.selectedCurrency,
+  cryptoRequestState: app.cryptoRequestState
 })
 
 interface SingleCryptoProps {
   rank: number,
   currency: Crypto,
-  selectedCurrency: string
+  selectedCurrency: string,
+  cryptoRequestState: string
 }
 
-export const SingleCryptoPage = ({ rank, currency, selectedCurrency }: SingleCryptoProps) => {
-console.log(1);
-  return (
+export const SingleCryptoPage = ({ rank, currency, selectedCurrency, cryptoRequestState }: SingleCryptoProps) => {
+  return cryptoRequestState === Status.NOT_LOADED ? (<>Just a second!</>) :
+   (
     <div data-test="component-crypto">
       <div>
-        <CurrencyDetail label={"Rank"} detail={"1"} />
+        <CurrencyDetail label={"Rank"} detail={rank} />
       </div>
       <div>
         <CurrencyDetail label={"Market Cap"} detail={currency.marketCap} />
