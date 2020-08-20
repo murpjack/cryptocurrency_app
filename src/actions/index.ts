@@ -40,7 +40,8 @@ export function updateCryptos(selectedCurrency: string) {
               circulatingSupply: item.DISPLAY[currency].SUPPLY,
               price: item.DISPLAY[currency].PRICE,
               volume24Hour: item.DISPLAY[currency].VOLUME24HOUR,
-              changePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR
+              changePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR,
+              imageUrl: Constants.IMG_PATH + item.DISPLAY[currency].IMAGEURL
             }
           }))
           .reduce((total: any, curr: any) => ({ ...total, ...curr }), {});

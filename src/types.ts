@@ -23,6 +23,7 @@ export interface Crypto {
   price: string;
   volume24Hour: number;
   changePCT24Hour: string;
+  imageUrl: string;
 }
 
 export interface AppState {

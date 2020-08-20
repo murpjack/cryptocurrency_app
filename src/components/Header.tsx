@@ -20,7 +20,7 @@ export const Header = ({ selectedCryptoName, cryptos, dispatch }: HeaderProps) =
   const selectedCrypto = () => {
     if (selectedCryptoName) {
       const crypto = Object.values(cryptos).find(c => c.name.toLowerCase() === selectedCryptoName);
-      return typeof crypto === "undefined" ? { name: "Error", fullName: "Error" } : crypto;
+      return typeof crypto === "undefined" ? { imageUrl: "./images/error_coin.png", name: "Error", fullName: "Error" } : crypto;
     }
     return { name: "Error", fullName: "Error" };
   }
@@ -33,6 +33,7 @@ export const Header = ({ selectedCryptoName, cryptos, dispatch }: HeaderProps) =
     {selectedCryptoName.length ? (
       <div>
         <Link href="/">{"<--"}</Link>
+        <img src={selectedCrypto().imageUrl} alt={selectedCrypto().fullName}/>
         <h2>{selectedCrypto().fullName}</h2>
         <p>{selectedCrypto().name}</p>
       </div>) :

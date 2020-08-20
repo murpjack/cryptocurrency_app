@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'raviger';
-
 import styled from "styled-components";
+
 import { device, colours } from "../styles/variables";
 
 import { Status } from "../constants";
@@ -32,6 +32,9 @@ const StyledItem = styled.div`
     margin: 0;
     max-width: 25%;
   }
+  img {
+    height: 32px;
+  }
 `;
 
 const StyledItemTitle = styled(StyledItem)`
@@ -48,6 +51,7 @@ const CryptoItem = ({ currency }: ItemProps) => {
   return (
     <StyledItem>
       <p>
+        <img src={currency.imageUrl} alt={currency.fullName}/>
         <span>{currency.fullName}</span>
       </p>
       <p>{currency.price}</p>
@@ -92,6 +96,7 @@ export const AllCryptosPage = ({ cryptos, selectedCurrency, cryptoRequestState }
       price: "-",
       marketCap: "-",
       changePCT24Hour: "-",
+      imageUrl: "./images/crypto_placeholder.png"
     }));
 
   return (
