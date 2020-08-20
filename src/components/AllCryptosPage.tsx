@@ -62,7 +62,7 @@ const CryptoItem = ({ currency }: ItemProps) => {
 }
 
 const StyledList = styled.div`
-  margin: 20px 0 40px;
+  margin: 0px 0 40px;
   padding: 0 15px;
   width: 100%;
 

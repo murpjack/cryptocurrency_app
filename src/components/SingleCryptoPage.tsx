@@ -19,6 +19,21 @@ const CurrencyDetail = ({ label, detail }: DetailProps) => (
     <p>{detail}</p>
   </div>)
 
+const StyledPage = styled.div`
+  background-color: #f0f;
+  margin: 0px 0 40px;
+  padding: 0;
+  width: 100%;
+
+  a {
+    color: inherit;
+    height: 45px;
+    margin-right: 10px;
+    min-width: 40px;
+    text-decoration: none;
+  }
+  `;
+
 const mapStateToProps = ({ app }: any) => ({
   selectedCurrency: app.selectedCurrency,
   cryptoRequestState: app.cryptoRequestState
@@ -33,7 +48,7 @@ interface SingleCryptoProps {
 
 export const SingleCryptoPage = ({ rank, currency, selectedCurrency, cryptoRequestState }: SingleCryptoProps) => {
   return cryptoRequestState === Status.NOT_LOADED || cryptoRequestState === Status.LOADING ? (
-    <div data-test="component-test-crypto">
+    <StyledPage data-test="component-test-crypto">
       <div>
         <CurrencyDetail label={"Rank"} detail={"#"} />
       </div>
@@ -42,10 +57,10 @@ export const SingleCryptoPage = ({ rank, currency, selectedCurrency, cryptoReque
         <CurrencyDetail label={"24 Hour Volume %"} detail={"-"} />
         <CurrencyDetail label={"Circulating Supply"} detail={"-"} />
       </div>
-    </div>
+    </StyledPage>
   ) :
     (
-      <div data-test="component-crypto">
+      <StyledPage data-test="component-crypto">
         <div>
           <CurrencyDetail label={"Rank"} detail={rank} />
         </div>
@@ -55,7 +70,9 @@ export const SingleCryptoPage = ({ rank, currency, selectedCurrency, cryptoReque
           <CurrencyDetail label={"Circulating Supply"} detail={currency.circulatingSupply} />
         </div>
 
-      </div>
+      </StyledPage>
     );
 };
+
+
 export default connect(mapStateToProps)(SingleCryptoPage);
