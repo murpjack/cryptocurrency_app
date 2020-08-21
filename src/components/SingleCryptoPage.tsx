@@ -41,25 +41,30 @@ const StyledPage = styled.div`
 
     .detail__label {
       color: ${colours.fontSinglePageLabel};
+      font-size: 11px;
       font-weight: 700;
       line-height: 1.4;
       margin-bottom: 10px;
-      font-size: 11px;
+      padding-left: 0px;
       letter-spacing: 1px;
 
     }
     .detail__value {
       color: #fff;
+      display: inline-block;
       letter-spacing: 1px;
+      position: relative;
+
       &--currency {
         color: ${colours.fontSinglePageLabel};
       }
       &--crypto {
         color: #2dd47b;
         font-weight: 700;
-        line-height: 1.4;
         font-size: 11px;
         letter-spacing: 1px;
+        position: relative;
+        top: -2px;
       }
     }
     `;
@@ -69,12 +74,22 @@ const StyledPage = styled.div`
     grid-row-start: 1;
     grid-row-end: span dropped;
 
-    p {
+    .detail__label {
       display: inline-block;
-      &:last-of-type {
-        padding-left: 30px;
+      margin-right: 15px;
+    }
 
-      }
+    .detail__value {
+      background-color: #1e385a;
+      border-radius: 50px;
+      color: #66a7f2;
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      width: 32px;
     }
   }
   `;

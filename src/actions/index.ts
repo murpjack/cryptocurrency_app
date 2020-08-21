@@ -13,7 +13,9 @@ export enum actionTypes {
 }
 
 export function updateCryptos(selectedCurrency: string) {
-  const startRequest = store.dispatch(action(actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED));
+  const startRequest = store.dispatch(
+    action(actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED)
+  );
 
   const handleResponse = (response: any) => {
     if (response.status !== 200 || response.data.Response === "Error") {
@@ -36,10 +38,10 @@ export function updateCryptos(selectedCurrency: string) {
               reference: currency,
               name: item.CoinInfo.Name,
               fullName: item.CoinInfo.FullName,
-              marketCap: item.RAW[currency].MKTCAP,
+              marketCap: `${item.DISPLAY[currency].TOSYMBOL} ${(item.RAW[currency].MKTCAP).toLocaleString()}`,
               circulatingSupply: item.RAW[currency].SUPPLY,
               price: item.DISPLAY[currency].PRICE,
-              volume24Hour: item.RAW[currency].VOLUME24HOUR,
+              volume24Hour: item.DISPLAY[currency].VOLUME24HOURTO,
               changePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR,
               imageUrl: Constants.IMG_PATH + item.DISPLAY[currency].IMAGEURL
             }

@@ -9,9 +9,11 @@ import { Status } from "../constants";
 import { Crypto } from "../types";
 
 const StyledItem = styled.div`
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
   color: ${colours.fontListItem};
   display: flex;
-  height: 45px;
+  height: 60px;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -29,15 +31,15 @@ const StyledItem = styled.div`
     display: inline-block;
     font-size: 1em;
     font-weight: 300;
-    height: 45px;
-    line-height: 45px;
+    height: 60px;
+    line-height: 60px;
     margin: 0;
     width: 100%;
   }
 
-  span {
-
-  }
+  // span {
+  //
+  // }
 
   img {
     border-radius: 50px;
@@ -50,6 +52,22 @@ const StyledItem = styled.div`
 const StyledItemTitle = styled.div`
   // Font colour from design is too light so the header shares its colour with StyledItem
   background-color: ${colours.bgListHeader};
+  border-top: 1px solid ${colours.fontSinglePageLabel};
+  border-bottom: 1px solid ${colours.fontSinglePageLabel};
+
+  div {
+    border: none;
+    height: 30px;
+  }
+
+  p {
+    color: ${colours.fontSinglePageLabel};
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 30px;
+    margin: 0;
+  }
 `;
 
 interface ItemProps {
