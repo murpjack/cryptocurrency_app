@@ -2,29 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import styled from "styled-components";
-import { device } from "../styles/variables";
+import { device, colours } from "../styles/variables";
 
 import { Status } from "../constants";
 import { Crypto } from "../types";
 
-interface DetailProps {
-  label: string,
-  detail: string | number
-}
-
-// information container in singleCurrencyPage
-const CurrencyDetail = ({ label, detail }: DetailProps) => (
-  <div>
-    <p>{label}</p>
-    <p>{detail}</p>
-  </div>)
-
 const StyledPage = styled.div`
-  background-color: #f0f;
-  height: 90vh;
+  background-color: ${colours.bgSinglePage};
+  height: 100vh;
   margin: 0;
   padding: 0;
-  width: 100%;
 
   a {
     color: inherit;
@@ -32,6 +19,63 @@ const StyledPage = styled.div`
     margin-right: 10px;
     min-width: 40px;
     text-decoration: none;
+  }
+
+  .wrapper {
+    @media ${device.tablet} {
+      display: grid;
+      height: 200px;
+      grid-template-columns: [start] 1fr [line2] 1fr [line3] 1fr [end];
+      grid-template-rows: [drop1] 1fr [drop2] 1fr ;
+      padding-top: 50px;
+    }
+  }
+  `;
+
+  const StyledDetail = styled.div`
+    align-self: center;
+    justify-self: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    .detail__label {
+      color: ${colours.fontSinglePageLabel};
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      font-size: 11px;
+      letter-spacing: 1px;
+
+    }
+    .detail__value {
+      color: #fff;
+      letter-spacing: 1px;
+      &--currency {
+        color: ${colours.fontSinglePageLabel};
+      }
+      &--crypto {
+        color: #2dd47b;
+        font-weight: 700;
+        line-height: 1.4;
+        font-size: 11px;
+        letter-spacing: 1px;
+      }
+    }
+    `;
+
+  const StyledDetailTaller = styled(StyledDetail)`
+  @media ${device.tablet} {
+    grid-row-start: 1;
+    grid-row-end: span dropped;
+
+    p {
+      display: inline-block;
+      &:last-of-type {
+        padding-left: 30px;
+
+      }
+    }
   }
   `;
 
@@ -48,31 +92,29 @@ interface SingleCryptoProps {
 }
 
 export const SingleCryptoPage = ({ rank, currency, selectedCurrency, cryptoRequestState }: SingleCryptoProps) => {
-  return cryptoRequestState === Status.NOT_LOADED || cryptoRequestState === Status.LOADING ? (
-    <StyledPage data-test="component-test-crypto">
-      <div>
-        <CurrencyDetail label={"Rank"} detail={"#"} />
-      </div>
-      <div>
-        <CurrencyDetail label={"Market Cap"} detail={"-"} />
-        <CurrencyDetail label={"24 Hour Volume %"} detail={"-"} />
-        <CurrencyDetail label={"Circulating Supply"} detail={"-"} />
+  const notLoaded = cryptoRequestState === Status.NOT_LOADED || cryptoRequestState === Status.LOADING;
+  return (
+    <StyledPage data-test="component-crypto">
+      <div className="wrapper">
+        <StyledDetailTaller>
+          <p className="detail__label">{"RANK"}</p>
+          <p className="detail__value">{notLoaded ? "#" : rank}</p>
+        </StyledDetailTaller>
+        <StyledDetail>
+          <p className="detail__label">{"MARKET CAP"}</p>
+          <p className="detail__value">{notLoaded ? "$ 100,000,000" : currency.marketCap}</p>
+        </StyledDetail>
+        <StyledDetail>
+          <p className="detail__label">{"24 HOUR VOLUME"}</p>
+          <p className="detail__value">{notLoaded ? "$ 100,000,000" : currency.volume24Hour}</p>
+        </StyledDetail>
+        <StyledDetail>
+          <p className="detail__label">{"CIRCULATING SUPPLY"}</p>
+          <p className="detail__value">{notLoaded ? "21,000,000 CRY" : (<>{currency.circulatingSupply} <span className="detail__value--crypto">{currency.name}</span></>)}</p>
+        </StyledDetail>
       </div>
     </StyledPage>
-  ) :
-    (
-      <StyledPage data-test="component-crypto">
-        <div>
-          <CurrencyDetail label={"Rank"} detail={rank} />
-        </div>
-        <div>
-          <CurrencyDetail label={"Market Cap"} detail={currency.marketCap} />
-          <CurrencyDetail label={"24 Hour Volume %"} detail={currency.changePCT24Hour} />
-          <CurrencyDetail label={"Circulating Supply"} detail={currency.circulatingSupply} />
-        </div>
-
-      </StyledPage>
-    );
+  );
 };
 
 

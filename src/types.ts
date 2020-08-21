@@ -18,10 +18,10 @@ export interface Crypto {
   reference: string;
   name: string;
   fullName: string;
-  marketCap: string;
-  circulatingSupply: string;
-  price: string;
-  volume24Hour: number;
+  marketCap: string | number;
+  circulatingSupply: string | number;
+  price: string | number;
+  volume24Hour: string | number;
   changePCT24Hour: string;
   imageUrl: string;
 }

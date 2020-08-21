@@ -36,10 +36,10 @@ export function updateCryptos(selectedCurrency: string) {
               reference: currency,
               name: item.CoinInfo.Name,
               fullName: item.CoinInfo.FullName,
-              marketCap: item.DISPLAY[currency].MKTCAP,
-              circulatingSupply: item.DISPLAY[currency].SUPPLY,
+              marketCap: item.RAW[currency].MKTCAP,
+              circulatingSupply: item.RAW[currency].SUPPLY,
               price: item.DISPLAY[currency].PRICE,
-              volume24Hour: item.DISPLAY[currency].VOLUME24HOUR,
+              volume24Hour: item.RAW[currency].VOLUME24HOUR,
               changePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR,
               imageUrl: Constants.IMG_PATH + item.DISPLAY[currency].IMAGEURL
             }

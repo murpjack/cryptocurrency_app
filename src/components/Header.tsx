@@ -12,7 +12,6 @@ const StyledHeader = styled.div`
   height: 75px;
   margin: 0;
   padding: 0;
-  width: 100%;
 
   a {
     color: inherit;
@@ -33,11 +32,10 @@ const StyledHeaderTitle = styled.div`
     text-decoration: none;
   }
   img {
+    border-radius: 50px;
     height: 32px;
     float: left;
-    margin-left: 50px;
-    padding: 22px 5px;
-    margin-right: 5px;
+    margin: 20px 10px 20px 45px;
     width: 32px;
   }
 
@@ -49,25 +47,28 @@ const StyledHeaderTitle = styled.div`
 
     /* Back arrow */
     &:before {
-      background-color: red;
+      background-color: #e5f2ff;
       border-radius: 50px;
+      color: #66a7f2;
       content: "←";
       display: block;
       font-size: 25px;
       font-weight: 700;
       height: 32px;
-      left: 15px;
+      left: 5px;
       line-height: 28px;
       position: absolute;
       text-align: center;
-      top: 22px;
+      top: 20px;
       width: 32px;
     }
   }
   p {
-    font-size: 16px;
-    font-weight: 400;
+    color: ${colours.fontSinglePageLabel};
+    font-size: 11px;
+    font-weight: 700;
     letter-spacing: 1px;
+    line-height: 1.4;
     margin: 0;
   }
 `;
@@ -105,23 +106,27 @@ export const Header = ({ selectedCryptoName, cryptos, dispatch }: HeaderProps) =
     dispatch(selectLocalCurrency(selected))
   }
 
-  return (<StyledHeader data-test="component-header">
-    <StyledHeaderTitle>
-      {selectedCryptoName.length ? (
-        <Link href="/">
-          <img src={selectedCrypto().imageUrl} alt={selectedCrypto().fullName} />
-          <div className="header__title">
-            <h2>{selectedCrypto().fullName}</h2>
-            <p>{selectedCrypto().name}</p>
-          </div>
-        </Link>) :
-        <Link href="/"><h1>VFCRYPTO</h1></Link>
-      }
-    </StyledHeaderTitle>
+  return (
+    <StyledHeader data-test="component-header">
+      <div className="wrapper">
 
-    <StyledDropdown data-test="component-local-currency-dropdown">{localCurrencies.map((currency: string, index: any) =>
-      <div onClick={() => selectCodeFromList(currency)} key={currency}>{currency}</div>)}
-    </StyledDropdown>
-  </StyledHeader>)
+        <StyledHeaderTitle>
+          {selectedCryptoName.length ? (
+            <Link href="/">
+              <img src={selectedCrypto().imageUrl} alt={selectedCrypto().fullName} />
+              <div className="header__title">
+                <h2>{selectedCrypto().fullName}</h2>
+                <p>{selectedCrypto().name}</p>
+              </div>
+            </Link>) :
+            <Link href="/"><h1>VFCRYPTO</h1></Link>
+          }
+        </StyledHeaderTitle>
+
+        <StyledDropdown data-test="component-local-currency-dropdown">{localCurrencies.map((currency: string, index: any) =>
+          <div onClick={() => selectCodeFromList(currency)} key={currency}>{currency}</div>)}
+        </StyledDropdown>
+      </div>
+    </StyledHeader>)
 }
 export default connect(mapStateToProps)(Header);

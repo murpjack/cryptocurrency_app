@@ -1,12 +1,4 @@
 @font-face {
-  font-family: 'Playfair';
-  src: url('./fonts/playfair-regular.woff2') format('woff2'),
-    url('./fonts/playfair-regular.woff') format('woff'),
-    url('./fonts/playfair-regular.ttf') format('truetype');
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'Open-sans';
   src: url('./fonts/open-sans.woff2') format('woff2'),
     url('/fonts/open-sans.woff') format('woff'),
@@ -14,9 +6,20 @@
   font-display: swap;
 }
 
+
 body {
+  box-sizing: border-box;
   margin: 0px;
+  padding: 0;
   font-family: 'Open-sans', "Arial", sans-serif;
+}
+
+#root, .App {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
 }
 
 a {
@@ -24,11 +27,12 @@ a {
 }
 
 h1 {
-  font-family: 'Playfair', "Arial", sans-serif;
+  font-family: 'Open-sans', "Arial", sans-serif;
   font-size: 25px;
+  font-weight: 500;
   line-height: 75px;
   margin: 0;
-  padding: 0 20px;
+  padding: 0 5px;
   text-align: left;
 }
 
@@ -38,10 +42,15 @@ h2 {
   font-weight: 500;
   letter-spacing: 2px;
   margin: 0;
-  text-transform: uppercase;
 }
 
 p {
   margin: 0;
   padding: 0;
+}
+
+.wrapper {
+  margin: 0 auto;
+  padding: 0 10px;
+  max-width: 900px;
 }
