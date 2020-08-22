@@ -3,8 +3,8 @@
 ## What
 A Single page application(SPA) to allow a collector or purveyor to track cryptocurrencies in real time.  
 
-## Installation
-**COMING SOON!!**
+## Setup
+This app uses CRA, which has just a few tweaks. For setup and installation, please see documentation in /REACT.md, or the Create React App project on Github.
 
 ## Features
 * View a list of cryptocurrencies all on one page.
