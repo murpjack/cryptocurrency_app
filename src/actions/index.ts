@@ -41,7 +41,7 @@ export function updateCryptos(selectedCurrency: string) {
               marketCap: item.RAW[currency].MKTCAP.toLocaleString(),
               selectedCurrencySymbol: item.DISPLAY[currency].TOSYMBOL,
               circulatingSupply: item.RAW[currency].SUPPLY.toLocaleString(),
-              price: item.RAW[currency].PRICE,
+              price: (item.RAW[currency].PRICE).toLocaleString(),
               volume24Hour: item.RAW[currency].VOLUME24HOURTO.toLocaleString(),
               changePCT24Hour:
                 item.DISPLAY[currency].CHANGEPCT24HOUR[0] === "-"

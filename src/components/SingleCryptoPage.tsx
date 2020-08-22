@@ -76,7 +76,7 @@ const StyledPage = styled.div`
 
     .detail__label {
       display: inline-block;
-      margin-right: 15px;
+      margin-right: 15px; 
     }
 
     .detail__value {
