@@ -13,19 +13,10 @@ const StyledItem = styled.div`
   border-bottom: 1px solid #e5e5e5;
   color: ${colours.fontListItem};
   display: flex;
-  height: 60px;
+  justify-content: space-between;
   margin: 0;
   padding: 0;
   width: 100%;
-
-  a {
-    color: inherit;
-    display: block;
-    height: 45px;
-    margin-right: 10px;
-    min-width: 40px;
-    text-decoration: none;
-  }
 
   p {
     display: inline-block;
@@ -37,16 +28,64 @@ const StyledItem = styled.div`
     width: 100%;
   }
 
-  // span {
-  //
-  // }
-
-  img {
-    border-radius: 50px;
+  .detail__value {
+    color: #fff;
     display: inline-block;
-    height: 32px;
-    width: 32px;
-  }
+    letter-spacing: 1px;
+    position: relative;
+
+    &--currency {
+      color: ${colours.fontSinglePageLabel};
+    }
+`;
+
+const StyledRank = styled.span`
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+`;
+
+const StyledIcon = styled.img`
+  border-radius: 50px;
+  display: inline-block;
+  height: 32px;
+  margin: -10px 12px;
+  width: 32px;
+`;
+
+const StyledCryptoTitle = styled.p`
+  min-width: 300px;
+`;
+
+const StyledCryptoValue = styled(StyledCryptoTitle)`
+  // min-width: 300px;
+`;
+
+const StyledListTitle = styled.p`
+  min-width: 200px;
+`;
+
+const StyledListValue = styled(StyledListTitle)`
+  // min-width: 100px;
+`;
+
+const StyledDiffTitle = styled.p`
+  text-align: right;
+  max-width: 100px;
+`;
+
+const StyledDiffValue = styled(StyledDiffTitle)`
+  text-align: right;
+  // max-width: 100px;
+`;
+
+const StyledLink = styled(Link)`
+  color: inherit;
+  display: block;
+  height: 60px;
+  margin-right: 10px;
+  min-width: 40px;
+  text-decoration: none;
 `;
 
 const StyledItemTitle = styled.div`
@@ -77,14 +116,14 @@ interface ItemProps {
 
 const CryptoItem = ({ currency, rank }: ItemProps) => (
   <StyledItem>
-    <p>
-      <span>{rank ? rank : "#"}</span>
-      <img src={currency.imageUrl} alt={currency.fullName} />
+    <StyledCryptoValue>
+      <StyledRank>{rank ? rank : "#"}</StyledRank>
+      <StyledIcon src={currency.imageUrl} alt={currency.fullName} />
       <span>{currency.fullName}</span>
-    </p>
-    <p>{currency.price}</p>
-    <p>{currency.marketCap}</p>
-    <p>{currency.changePCT24Hour}</p>
+    </StyledCryptoValue>
+    <StyledListValue><span className="detail__value--currency">{currency.selectedCurrencySymbol}</span> {currency.price}</StyledListValue>
+    <StyledListValue><span className="detail__value--currency">{currency.selectedCurrencySymbol}</span> {currency.marketCap}</StyledListValue>
+    <StyledDiffValue>{currency.changePCT24Hour}</StyledDiffValue>
   </StyledItem>
 )
 
@@ -92,14 +131,6 @@ const StyledList = styled.div`
   margin: 0px 0px;
   padding: 0 0px;
   width: 100%;
-
-  a {
-    color: inherit;
-    height: 45px;
-    margin-right: 10px;
-    min-width: 40px;
-    text-decoration: none;
-  }
 `;
 
 const mapStateToProps = ({ app }: any) => ({
@@ -131,10 +162,10 @@ export const AllCryptosPage = ({ cryptos, selectedCurrency, cryptoRequestState }
       <StyledItemTitle>
         <div className="wrapper">
           <StyledItem>
-            <p>CRYPTOCURRENCY</p>
-            <p>PRICE</p>
-            <p>MARKET CAP</p>
-            <p>24H CHANGE</p>
+            <StyledCryptoTitle>CRYPTOCURRENCY</StyledCryptoTitle>
+            <StyledListTitle>PRICE</StyledListTitle>
+            <StyledListTitle>MARKET CAP</StyledListTitle>
+            <StyledDiffTitle>24H CHANGE</StyledDiffTitle>
           </StyledItem>
         </div>
       </StyledItemTitle>
@@ -148,9 +179,9 @@ export const AllCryptosPage = ({ cryptos, selectedCurrency, cryptoRequestState }
               </div>
             ))
             : Object.values(cryptos).filter(c => c.reference === selectedCurrency).map((crypto: Crypto, index: any) => (
-              <Link key={index} href={`/single/${crypto.name.toLowerCase()}`}>
+              <StyledLink key={index} href={`/single/${crypto.name.toLowerCase()}`}>
                 <CryptoItem currency={crypto} rank={index + 1} />
-              </Link>
+              </StyledLink>
             ))}
         </StyledList>
       </div>

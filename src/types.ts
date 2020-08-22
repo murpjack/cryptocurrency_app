@@ -21,6 +21,7 @@ export interface Crypto {
   marketCap: string | number;
   circulatingSupply: string | number;
   price: string | number;
+  selectedCurrencySymbol: string | number;
   volume24Hour: string | number;
   changePCT24Hour: string;
   imageUrl: string;

@@ -24,7 +24,6 @@ export function reducer(state: AppState = initialState, action: any): AppState {
     case actionTypes.UPDATE_CRYPTOS_REQUEST_STARTED:
       return {
         ...state,
-        cryptos: [],
         cryptoRequestState: Status.LOADING,
         cryptoRequestFailure: ""
       };

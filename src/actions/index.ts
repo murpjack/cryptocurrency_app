@@ -38,10 +38,11 @@ export function updateCryptos(selectedCurrency: string) {
               reference: currency,
               name: item.CoinInfo.Name,
               fullName: item.CoinInfo.FullName,
-              marketCap: `${item.DISPLAY[currency].TOSYMBOL} ${(item.RAW[currency].MKTCAP).toLocaleString()}`,
-              circulatingSupply: item.RAW[currency].SUPPLY,
-              price: item.DISPLAY[currency].PRICE,
-              volume24Hour: item.DISPLAY[currency].VOLUME24HOURTO,
+              marketCap: (item.RAW[currency].MKTCAP).toLocaleString(),
+              selectedCurrencySymbol: item.DISPLAY[currency].TOSYMBOL,
+              circulatingSupply: (item.RAW[currency].SUPPLY).toLocaleString(),
+              price: item.RAW[currency].PRICE,
+              volume24Hour: (item.RAW[currency].VOLUME24HOURTO).toLocaleString(),
               changePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR,
               imageUrl: Constants.IMG_PATH + item.DISPLAY[currency].IMAGEURL
             }

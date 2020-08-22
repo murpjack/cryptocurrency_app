@@ -115,13 +115,13 @@ export const SingleCryptoPage = ({ rank, currency, selectedCurrency, cryptoReque
           <p className="detail__label">{"RANK"}</p>
           <p className="detail__value">{notLoaded ? "#" : rank}</p>
         </StyledDetailTaller>
-        <StyledDetail>
+        <StyledDetail >
           <p className="detail__label">{"MARKET CAP"}</p>
-          <p className="detail__value">{notLoaded ? "$ 100,000,000" : currency.marketCap}</p>
+          <p className="detail__value"><span className="detail__value--currency">{currency.selectedCurrencySymbol}</span> {notLoaded ? "$ 100,000,000" : currency.marketCap}</p>
         </StyledDetail>
         <StyledDetail>
           <p className="detail__label">{"24 HOUR VOLUME"}</p>
-          <p className="detail__value">{notLoaded ? "$ 100,000,000" : currency.volume24Hour}</p>
+          <p className="detail__value"><span className="detail__value--currency">{currency.selectedCurrencySymbol}</span> {notLoaded ? "$ 100,000,000" : currency.volume24Hour}</p>
         </StyledDetail>
         <StyledDetail>
           <p className="detail__label">{"CIRCULATING SUPPLY"}</p>

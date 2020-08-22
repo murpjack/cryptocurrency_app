@@ -28,7 +28,7 @@ function App() {
   const selectedCryptoName: string =
     window.location.pathname.indexOf("/single/") > -1 ? window.location.pathname.slice(("/single/").length) : "";
 
-  const t = 60;
+  const t = 600;
   const [seconds, setSeconds] = useState(t);
   const reset = () => setSeconds(t);
 
