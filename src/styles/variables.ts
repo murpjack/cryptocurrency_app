@@ -21,7 +21,7 @@ export const device = {
 
 export const colours = {
   bgListHeader: "#ebf0f4",
-  fontListItem: "#8f97ad",
+  fontListItem: "#333",
   bgSinglePage: "#132540",
   fontSinglePageLabel: "#4d738f"
 }

@@ -38,12 +38,17 @@ export function updateCryptos(selectedCurrency: string) {
               reference: currency,
               name: item.CoinInfo.Name,
               fullName: item.CoinInfo.FullName,
-              marketCap: (item.RAW[currency].MKTCAP).toLocaleString(),
+              marketCap: item.RAW[currency].MKTCAP.toLocaleString(),
               selectedCurrencySymbol: item.DISPLAY[currency].TOSYMBOL,
-              circulatingSupply: (item.RAW[currency].SUPPLY).toLocaleString(),
+              circulatingSupply: item.RAW[currency].SUPPLY.toLocaleString(),
               price: item.RAW[currency].PRICE,
-              volume24Hour: (item.RAW[currency].VOLUME24HOURTO).toLocaleString(),
-              changePCT24Hour: item.DISPLAY[currency].CHANGEPCT24HOUR,
+              volume24Hour: item.RAW[currency].VOLUME24HOURTO.toLocaleString(),
+              changePCT24Hour:
+                item.DISPLAY[currency].CHANGEPCT24HOUR[0] === "-"
+                  ? item.DISPLAY[currency].CHANGEPCT24HOUR.slice(1)
+                  : item.DISPLAY[currency].CHANGEPCT24HOUR,
+              pctHasIncreased:
+                item.DISPLAY[currency].CHANGEPCT24HOUR[0] !== "-",
               imageUrl: Constants.IMG_PATH + item.DISPLAY[currency].IMAGEURL
             }
           }))

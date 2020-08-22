@@ -108,6 +108,14 @@ interface SingleCryptoProps {
 
 export const SingleCryptoPage = ({ rank, currency, selectedCurrency, cryptoRequestState }: SingleCryptoProps) => {
   const notLoaded = cryptoRequestState === Status.NOT_LOADED || cryptoRequestState === Status.LOADING;
+const placeholder = {
+  name: "BTC",
+  price: ("00000.00").toLocaleString(),
+  marketCap: ("0000000").toLocaleString(),
+  circulatingSupply: ("10000000").toLocaleString(),
+  selectedCurrencySymbol: "$"
+};
+
   return (
     <StyledPage data-test="component-crypto">
       <div className="wrapper">
@@ -117,15 +125,15 @@ export const SingleCryptoPage = ({ rank, currency, selectedCurrency, cryptoReque
         </StyledDetailTaller>
         <StyledDetail >
           <p className="detail__label">{"MARKET CAP"}</p>
-          <p className="detail__value"><span className="detail__value--currency">{currency.selectedCurrencySymbol}</span> {notLoaded ? "$ 100,000,000" : currency.marketCap}</p>
+          <p className="detail__value"><span className="detail__value--currency">{currency.selectedCurrencySymbol}</span> {currency.marketCap}</p>
         </StyledDetail>
         <StyledDetail>
           <p className="detail__label">{"24 HOUR VOLUME"}</p>
-          <p className="detail__value"><span className="detail__value--currency">{currency.selectedCurrencySymbol}</span> {notLoaded ? "$ 100,000,000" : currency.volume24Hour}</p>
+          <p className="detail__value"><span className="detail__value--currency">{currency.selectedCurrencySymbol}</span> {currency.volume24Hour}</p>
         </StyledDetail>
         <StyledDetail>
           <p className="detail__label">{"CIRCULATING SUPPLY"}</p>
-          <p className="detail__value">{notLoaded ? "21,000,000 CRY" : (<>{currency.circulatingSupply} <span className="detail__value--crypto">{currency.name}</span></>)}</p>
+          <p className="detail__value">{currency.circulatingSupply} <span className="detail__value--crypto">{currency.name}</span></p>
         </StyledDetail>
       </div>
     </StyledPage>

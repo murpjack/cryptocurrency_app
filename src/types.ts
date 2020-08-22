@@ -24,6 +24,7 @@ export interface Crypto {
   selectedCurrencySymbol: string | number;
   volume24Hour: string | number;
   changePCT24Hour: string;
+  pctHasIncreased: boolean;
   imageUrl: string;
 }
 
